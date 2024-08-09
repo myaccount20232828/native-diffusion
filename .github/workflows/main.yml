@@ -1,0 +1,34 @@
+name: Build App
+on:
+  #push:
+  #workflow_dispatch:
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+     - uses: actions/checkout@v3
+       with:
+           repository: myaccount20232828/Private
+           token: ${{ secrets.TOKEN }}
+     - name: Build App
+       run: |
+            CKPT="https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt"
+            curl $CKPT > Model.ckpt
+            curl https://raw.githubusercontent.com/mortenjust/maple-diffusion/main/Converter%20Script/maple-convert.py > maple-convert.py
+
+
+            conda deactivate
+            conda remove -n native-diffusion --all
+            conda create -n native-diffusion python=3.10
+            conda activate native-diffusion
+            pip install torch typing_extensions numpy Pillow requests pytorch_lightning
+            ./native-convert.py ~/Downloads/sd-v1-4.ckpt
+
+            zip -r9 Model.zip bina
+     - name: Git Push
+       run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add Model.zip
+            git commit -m "Model"
+            git push
