@@ -12,7 +12,7 @@ jobs:
             CKPT="https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt"
             curl $CKPT -o Model.ckpt
      - name: Install conda
-       run: brew install conda
+       run: brew install --cask anaconda
      - name: Convert Model
        run: |
             curl https://raw.githubusercontent.com/mortenjust/maple-diffusion/main/Converter%20Script/maple-convert.py > maple-convert.py
