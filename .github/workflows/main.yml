@@ -33,14 +33,10 @@ jobs:
             conda activate native-diffusion
             pip install torch typing_extensions numpy Pillow requests pytorch_lightning
             python3 native-convert.py Model.ckpt
-            zip -r9 Model.zip bins
+            #zip -r9 Model.zip bins
        shell: bash
-     - name: Git Push
-       run: |
-            git config user.name github-actions
-            git config user.email github-actions@github.com
-            git lfs track Model.zip
-            git add Model.zip
-            git add .gitattributes
-            git commit -m "Model"
-            git push
+     - name: Upload 
+       uses: actions/upload-artifact@v3
+       with:
+          name: Model.zip
+          path: bins
