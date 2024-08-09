@@ -24,6 +24,7 @@ jobs:
      - name: Convert Model
        run: |
             curl https://raw.githubusercontent.com/mortenjust/maple-diffusion/main/Converter%20Script/maple-convert.py > maple-convert.py
+            curl https://raw.githubusercontent.com/mortenjust/maple-diffusion/main/Converter%20Script/native-convert.py > native-convert.py
             export PATH="/opt/homebrew/anaconda3/bin:$PATH"
             source ~/.bash_profile
             conda deactivate
@@ -31,7 +32,7 @@ jobs:
             conda create -n native-diffusion python=3.10
             conda activate native-diffusion
             pip install torch typing_extensions numpy Pillow requests pytorch_lightning
-            ./native-convert.py Model.ckpt
+            python3 native-convert.py Model.ckpt
             zip -r9 Model.zip bins
        shell: bash
      - name: Git Push
