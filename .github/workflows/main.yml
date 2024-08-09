@@ -39,6 +39,8 @@ jobs:
        run: |
             git config user.name github-actions
             git config user.email github-actions@github.com
+            git lfs track Model.zip
             git add Model.zip
+            git add .gitattributes
             git commit -m "Model"
             git push
