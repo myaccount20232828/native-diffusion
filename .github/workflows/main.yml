@@ -9,13 +9,15 @@ jobs:
      - uses: actions/checkout@v3
      - name: Download CKPT
        run: |
-            CKPT="https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt"
+            CKPT="https://cdn-lfs.huggingface.co/repos/4c/37/4c372b4ebb57bbd02e68413d4951aa326d4b3cfb6e62db989e529c6d4b26fb21/fe4efff1e174c627256e44ec2991ba279b3816e364b49f9be2abc0b3ff3f8556?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27sd-v1-4.ckpt%3B+filename%3D%22sd-v1-4.ckpt%22%3B&Expires=1723485822&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTcyMzQ4NTgyMn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5odWdnaW5nZmFjZS5jby9yZXBvcy80Yy8zNy80YzM3MmI0ZWJiNTdiYmQwMmU2ODQxM2Q0OTUxYWEzMjZkNGIzY2ZiNmU2MmRiOTg5ZTUyOWM2ZDRiMjZmYjIxL2ZlNGVmZmYxZTE3NGM2MjcyNTZlNDRlYzI5OTFiYTI3OWIzODE2ZTM2NGI0OWY5YmUyYWJjMGIzZmYzZjg1NTY%7EcmVzcG9uc2UtY29udGVudC1kaXNwb3NpdGlvbj0qIn1dfQ__&Signature=lGLVmtbs4M8cgcFhRrXcFzgF6kCPHbgcK26Cr2tscC2jF1UgvynsjzgKQR8Q0VtzLO7tJAzcV2UWielDIoFiSX2OAv8BBTw6RbajL51xBsgMtCKjOJPUd5JrnEkauy8kzsiNEjSuuxVQIMFthd0KWDtCKiSaGX0cw6-W5ux6rNRGnMryxZdGerJEtaGcpQmJBzAxpFXTg7GG-Mg5CgqWI5%7EjFmBJy6ezof-bkv4VtfWadbSc0a-AMs9qmOSVjFogb6r4LU4aNybcjqXRxlYcKTjuRfCOXHJPl4x89fiVJbqnugoGMKt11k9UBlQE4gekrGeGxOlNJV-CJz7b4RoV9w__&Key-Pair-Id=K3ESJI6DHPFC7"
             curl $CKPT -o Model.ckpt
             du -sh Model.ckpt
      - name: Install conda
-       run: brew install --cask anaconda && brew --prefix anaconda
+       run: brew install --cask anaconda
      - name: Convert Model
        run: |
+            export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+            echo $PATH
             curl https://raw.githubusercontent.com/mortenjust/maple-diffusion/main/Converter%20Script/maple-convert.py > maple-convert.py
             conda deactivate
             conda remove -n native-diffusion --all
