@@ -22,7 +22,7 @@ jobs:
        run: |
             curl https://raw.githubusercontent.com/mortenjust/maple-diffusion/main/Converter%20Script/maple-convert.py > maple-convert.py
             export PATH="/opt/homebrew/anaconda3/bin:$PATH"
-            conda deactivate
+            #conda deactivate
             conda remove -n native-diffusion --all
             conda create -n native-diffusion python=3.10
             conda activate native-diffusion
