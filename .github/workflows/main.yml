@@ -14,11 +14,14 @@ jobs:
             du -sh Model.ckpt
      - name: Install conda
        run: brew install --cask anaconda
+     - name: Setup conda
+       run: |
+            export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+            conda init
      - name: Convert Model
        run: |
             curl https://raw.githubusercontent.com/mortenjust/maple-diffusion/main/Converter%20Script/maple-convert.py > maple-convert.py
             export PATH="/opt/homebrew/anaconda3/bin:$PATH"
-            conda init
             conda deactivate
             conda remove -n native-diffusion --all
             conda create -n native-diffusion python=3.10
